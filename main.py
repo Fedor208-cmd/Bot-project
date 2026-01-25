@@ -5,6 +5,8 @@ from add_command import add, add_complete
 from delete_command import delete, delete_complete
 from check_command import check, check_continuation
 from help_command import help
+from joke_command import joke
+
 
 
 def main():
@@ -12,6 +14,7 @@ def main():
     application.add_handler(CommandHandler("help", help))
     application.add_handler(CommandHandler("registration", registration))
     application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("joke", joke))
 
     conv_handler_add = ConversationHandler(
         entry_points=[CommandHandler("add", add)],
