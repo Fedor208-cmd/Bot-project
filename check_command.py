@@ -23,7 +23,12 @@ async def check_continuation(update, context):
     file = open("database_users.json", "r", encoding="utf-8")
     data = json.load(file)
     file.close()
-    if update.message.text.lower() == "да":
+    answer = update.message.text.lower()
+    if answer != "да" and answer != "нет":
+        await update.message.reply_text("Ошибка, ответ должен быть да или нет\n "
+                                        f"{data[str(update.message.from_user.id)][str(counter_questions - 1)]}")
+        return 2
+    if answer == "да":
         counter_yes += 1
     if counter_questions > len(data[str(update.message.from_user.id)]):
         await update.message.reply_text(
@@ -34,4 +39,3 @@ async def check_continuation(update, context):
     await update.message.reply_text(data[str(update.message.from_user.id)][str(counter_questions)])
     counter_questions += 1
     return 2
-
